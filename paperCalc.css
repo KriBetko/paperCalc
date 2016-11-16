@@ -1,0 +1,29 @@
+body{
+    display: inline-block;
+}
+
+fieldset{
+    display: inline-block;
+    vertical-align: top;
+    height: 60px;
+}
+
+fieldset > div{
+    margin-bottom: 5px;
+}
+
+input[type="text"]{
+    width: 35px;
+}
+
+input.invalid{
+    border: 1px solid #ff0000;
+}
+
+input.valid{
+    border: 1px solid #808080;
+}
+
+.buttons{
+    float: right;
+}

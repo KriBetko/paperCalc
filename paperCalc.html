@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Paper Calc</title>
+    <link rel="stylesheet" type="text/css" href="paperCalc.css">
+</head>
+<body>
+    <fieldset class="input">
+        <legend>Параметры:</legend>
+        <div>
+            <label for="paperCalc_listH">Формат бумаги, мм:</label>
+            <input class="empty" type="text" id="paperCalc_listH" maxlength="4" value="700">
+            <label for="paperCalc_listW">x</label>
+            <input class="empty" type="text" id="paperCalc_listW" maxlength="4" value="1000">
+        </div>
+        <div>
+            <label for="paperCalc_objH">Требуемый формат, мм:</label>
+            <input class="empty" type="text" id="paperCalc_objH" maxlength="4" value="210">
+            <label for="paperCalc_objW">x</label>
+            <input class="empty" type="text" id="paperCalc_objW" maxlength="4" value="297">
+        </div>
+    </fieldset>
+    <fieldset class="result">
+        <legend>Результат:  </legend>
+        <div>
+            <span>Штук с листа: </span><span id="paperCalc_count">0</span>
+        </div>
+        <div>
+            <span>Процент отходов: </span><span id="paperCalc_trash">0</span>
+        </div>
+    </fieldset>
+    <hr>
+    <div class="buttons">
+        <div id="paperCalc_error" style="color: red;"></div>
+        <input type="button" id="paperCalc_reset" value="Очистить">
+        <input type="button" id="paperCalc_eval" value="Вычислить">
+    </div>
+    <script src="paperCalc.js"></script>
+</body>
+</html>
