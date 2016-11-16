@@ -3,39 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <title>Paper Calc</title>
-    <link rel="stylesheet" type="text/css" href="paperCalc.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/paperCalc.css">
 </head>
 <body>
-    <fieldset class="input">
-        <legend>Параметры:</legend>
-        <div>
-            <label for="paperCalc_listH">Формат бумаги, мм:</label>
-            <input class="empty" type="text" id="paperCalc_listH" maxlength="4" value="700">
-            <label for="paperCalc_listW">x</label>
-            <input class="empty" type="text" id="paperCalc_listW" maxlength="4" value="1000">
+    <div class="container">
+        <div class="row">
+            <div class="input-group">
+                <span class="input-group-addon" id="input-label-list">Формат бумаги, мм:</span>
+                <input id="paperCalc_listW" type="number" class="form-control" placeholder="Ширина" aria-describedby="input-label-list" value="700">
+                <span class="input-group-addon" id="sizing-addon1">x</span>
+                <input id="paperCalc_listH" type="number" class="form-control" placeholder="Висота" aria-describedby="sizing-addon1" value="1000">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="input-label-object">Требуемый формат, мм:</span>
+                <input id="paperCalc_objW" type="number" class="form-control" placeholder="Ширина" aria-describedby="input-label-object" value="210">
+                <span class="input-group-addon" id="sizing-addon2">x</span>
+                <input id="paperCalc_objH" type="number" class="form-control" placeholder="Висота" aria-describedby="sizing-addon2" value="297">
+            </div>
         </div>
-        <div>
-            <label for="paperCalc_objH">Требуемый формат, мм:</label>
-            <input class="empty" type="text" id="paperCalc_objH" maxlength="4" value="210">
-            <label for="paperCalc_objW">x</label>
-            <input class="empty" type="text" id="paperCalc_objW" maxlength="4" value="297">
+        <div class="row">
+            <div class="well well-sm">
+                <div>
+                    <span>Штук с листа: </span><span id="paperCalc_count">0</span>
+                </div>
+                <div>
+                    <span>Процент отходов: </span><span id="paperCalc_trash">0</span>
+                </div>
+            </div>
+            <div id="paperCalc_error" class="alert alert-danger" role="alert" style="display: none;"></div>
         </div>
-    </fieldset>
-    <fieldset class="result">
-        <legend>Результат:  </legend>
-        <div>
-            <span>Штук с листа: </span><span id="paperCalc_count">0</span>
+        <div class="row">
+            <div class="btn-group pull-right" role="group">
+                <button id="paperCalc_reset" type="button" class="btn btn-danger">Очистить</button>
+                <button id="paperCalc_eval" type="button" class="btn btn-success">Вычислить</button>
+            </div>
         </div>
-        <div>
-            <span>Процент отходов: </span><span id="paperCalc_trash">0</span>
+        <div class="row">
+
         </div>
-    </fieldset>
-    <hr>
-    <div class="buttons">
-        <div id="paperCalc_error" style="color: red;"></div>
-        <input type="button" id="paperCalc_reset" value="Очистить">
-        <input type="button" id="paperCalc_eval" value="Вычислить">
     </div>
-    <script src="paperCalc.js"></script>
+    <script src="js/paperCalc.js"></script>
 </body>
 </html>

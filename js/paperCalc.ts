@@ -4,10 +4,11 @@ document.getElementById('paperCalc_eval').addEventListener('click', function () 
 
 document.getElementById('paperCalc_reset').addEventListener('click', function () {
     resetInputs();
+    resetError();
 });
 
 let inputs: string[] = ["paperCalc_listH", "paperCalc_listW", "paperCalc_objH", "paperCalc_objW"];
-let results: string[] = ["paperCalc_count", "paperCalc_trash", "paperCalc_gap"];
+let results: string[] = ["paperCalc_count", "paperCalc_trash"];
 
 function calc()
 {
@@ -45,27 +46,27 @@ function checkData(listW: number = 0, listH: number = 0, objW :number = 0, objH:
     {
         return "Площадь листа не должна быть меньше площади требуемого формата";
     }
-
-    return null;
+    else
+    {
+        return null;
+    }
 }
 
 function showResult(count: number, trash: number)
 {
-    document.getElementById("paperCalc_count").innerText = count.toString();
+    document.getElementById("paperCalc_count").innerText = count.toString() + " шт.";
     document.getElementById("paperCalc_trash").innerText = trash.toString() + "%";
 }
 
 function showError(message: string)
 {
+    document.getElementById("paperCalc_error").style.display = "block";
     document.getElementById("paperCalc_error").innerText = message;
-    for (let i = 0; i < inputs.length; i++)
-    {
-        (<HTMLInputElement>document.getElementById(inputs[i])).style.border = "1px solid #ff0000";
-    }
 }
 
 function resetError()
 {
+    document.getElementById("paperCalc_error").style.display = "none";
     document.getElementById("paperCalc_error").innerText = "";
 }
 
@@ -73,7 +74,7 @@ function resetInputs()
 {
     for (let i = 0; i < inputs.length; i++)
     {
-        (<HTMLInputElement>document.getElementById(inputs[i])).value = "0";
+        (<HTMLInputElement>document.getElementById(inputs[i])).value = "";
     }
 
     for (let i = 0; i < results.length; i++)
