@@ -139,6 +139,8 @@ function drawResult(listW: number, listH: number, objW: number, objH: number, co
         context.font = "30px Arial";
         context.fillText((i + 1).toString(), (items[i].start.x + (objW / 2)) - 5, (items[i].start.y + (objH / 2)) - 5);
     }
+
+    parent.postMessage("resize", "*");
 }
 
 function calcDrawResult(listW: number, objH: number, objW: number, count: number): Array<Item> {
