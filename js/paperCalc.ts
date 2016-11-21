@@ -27,7 +27,7 @@ function calc()
     else
     {
         let listArea = listH*listW;
-        let count = Math.round(listW/objW) * Math.round(listH/objH);
+        let count = Math.floor(listW/objW) * Math.floor(listH/objH);
         let trash = (listArea - count * (objH*objW)) / (listArea / 100);
         showResult(count, trash);
         let n = 1;
@@ -35,7 +35,7 @@ function calc()
     }
 }
 
-function checkData(listW: number = 0, listH: number = 0, objW :number = 0, objH: number = 0):string
+function checkData(listW: number, listH: number, objW :number, objH: number):string
 {
     if(isNaN(listH) || isNaN(listW) || isNaN(objH) || isNaN(objW))
     {
@@ -86,27 +86,18 @@ function resetInputs()
     }
 }
 
-function calcDrawResult(listW: number, objH: number, objW: number, count: number): Array<Item> {
-    let objOnRow = Math.round(listW / objW);
-
-    let items: Array<Item> = [];
-
-    for (let i = 1; i <= count; i++){
-        let item = new Item();
-        item.index = i;
-        item.calcItemPosition(i, objOnRow);
-        item.calcItemSize(objW, objH);
-        item.calcItemCoordinates();
-        items.push(item);
-    }
-
-    return items;
-}
-
 function drawResult(listW: number, listH: number, objW: number, objH: number, count: number){
     let canvas = <HTMLCanvasElement>document.getElementById("paperCalc_canvas");
-    canvas.width = listW + canvasPadding;
-    canvas.height = listH + canvasPadding;
+    canvas.width = canvas.parentElement.offsetWidth;
+    let scale = (canvas.width - canvasPadding) / listW;
+    canvas.height = (listH + canvasPadding) * scale;
+
+    let textListWidth = listW.toString();
+    let textListHeight = listH.toString();
+    listW = Math.round(listW * scale);
+    listH = Math.round(listH * scale);
+    objW = Math.round(objW * scale);
+    objH = Math.round(objH * scale);
 
     let items = calcDrawResult(listW, objH, objW, count);
 
@@ -120,9 +111,10 @@ function drawResult(listW: number, listH: number, objW: number, objH: number, co
 
     context.fillStyle = "black";
     context.font = "20px Arial";
-    let widthX = (listW / 2) + canvasPadding;
-    let widthY = canvasPadding / 2;
-    context.fillText(listW.toString(), widthX, widthY);
+    context.fillText(textListWidth,
+        (listW / 2) + canvasPadding,
+        canvasPadding / 2
+    );
 
     context.save();
     context.translate(context.canvas.width - 1, 0);
@@ -130,9 +122,10 @@ function drawResult(listW: number, listH: number, objW: number, objH: number, co
     context.textAlign = "right";
     context.fillStyle = "black";
     context.font = "20px Arial";
-    let heightX = (listH / 2) + canvasPadding;
-    let heightY = context.canvas.width - (canvasPadding / 2);
-    context.fillText(listH.toString(), -heightX, -heightY);
+    context.fillText(textListHeight,
+        -((listH / 2) + canvasPadding),
+        -(context.canvas.width - (canvasPadding / 2))
+    );
     context.restore();
 
     for (let i = 0; i < items.length; i++){
@@ -146,6 +139,23 @@ function drawResult(listW: number, listH: number, objW: number, objH: number, co
         context.font = "30px Arial";
         context.fillText((i + 1).toString(), (items[i].start.x + (objW / 2)) - 5, (items[i].start.y + (objH / 2)) - 5);
     }
+}
+
+function calcDrawResult(listW: number, objH: number, objW: number, count: number): Array<Item> {
+    let objOnRow = Math.floor(listW / objW);
+
+    let items: Array<Item> = [];
+
+    for (let i = 1; i <= count; i++){
+        let item = new Item();
+        item.index = i;
+        item.calcItemPosition(i, objOnRow);
+        item.calcItemSize(objW, objH);
+        item.calcItemCoordinates();
+        items.push(item);
+    }
+
+    return items;
 }
 
 class Item{
