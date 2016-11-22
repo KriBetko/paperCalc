@@ -92,14 +92,16 @@ function drawResult(listW: number, listH: number, objW: number, objH: number, co
     let scale = (canvas.width - canvasPadding) / listW;
     canvas.height = (listH + canvasPadding) * scale;
 
+    let objOnRow = Math.floor(listW / objW);
+
     let textListWidth = listW.toString();
     let textListHeight = listH.toString();
-    listW = Math.round(listW * scale);
-    listH = Math.round(listH * scale);
-    objW = Math.round(objW * scale);
-    objH = Math.round(objH * scale);
+    listW = listW * scale;
+    listH = listH * scale;
+    objW = objW * scale;
+    objH = objH * scale;
 
-    let items = calcDrawResult(listW, objH, objW, count);
+    let items = calcDrawResult(listW, objH, objW, count, objOnRow);
 
     let context = canvas.getContext("2d");
 
@@ -144,9 +146,7 @@ function drawResult(listW: number, listH: number, objW: number, objH: number, co
     parent.postMessage("resize", "*");
 }
 
-function calcDrawResult(listW: number, objH: number, objW: number, count: number): Array<Item> {
-    let objOnRow = Math.floor(listW / objW);
-
+function calcDrawResult(listW: number, objH: number, objW: number, count: number, objOnRow: number): Array<Item> {
     let items: Array<Item> = [];
 
     for (let i = 1; i <= count; i++){
@@ -240,6 +240,17 @@ function test(){
 
     function getRandomTest():{listW: number, listH: number, objW: number, objH:number} {
         let randArr = tests[Math.floor((Math.random() * tests.length - 1))];
+
+        let reverse = Math.floor(Math.random() * 2 + 1);
+        if(reverse == 2){
+            let tmp = randArr[1];
+            randArr[1] = randArr[0];
+            randArr[0] = tmp;
+            tmp = randArr[3];
+            randArr[3] = randArr[2];
+            randArr[2] = tmp;
+        }
+
         return {listW: randArr[0], listH: randArr[1], objW: randArr[2], objH: randArr[3]};
     }
 
