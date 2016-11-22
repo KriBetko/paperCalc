@@ -58,7 +58,7 @@ function checkData(listW: number, listH: number, objW :number, objH: number):str
 function showResult(count: number, trash: number)
 {
     document.getElementById("paperCalc_count").innerText = count.toString() + " шт.";
-    document.getElementById("paperCalc_trash").innerText = trash.toString() + "%";
+    document.getElementById("paperCalc_trash").innerText = trash.toFixed(2) + "%";
 }
 
 function showError(message: string)
