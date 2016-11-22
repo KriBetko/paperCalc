@@ -223,3 +223,32 @@ class ItemSize{
         return {width: this.width, height: this.height};
     }
 }
+
+document.getElementById('paperCalc_test').addEventListener('click', function () {
+    test();
+});
+
+function test(){
+    const tests =
+    [
+        [787, 1092, 210, 300],
+        [787, 1092, 300, 300],
+        [710, 1010, 340, 450],
+        [700, 1000, 200, 200],
+        [700, 1000, 50, 90]
+    ];
+
+    function getRandomTest():{listW: number, listH: number, objW: number, objH:number} {
+        let randArr = tests[Math.floor((Math.random() * tests.length - 1))];
+        return {listW: randArr[0], listH: randArr[1], objW: randArr[2], objH: randArr[3]};
+    }
+
+    let params = getRandomTest();
+
+    (<HTMLInputElement>document.getElementById("paperCalc_listW")).value = params.listW.toString();
+    (<HTMLInputElement>document.getElementById("paperCalc_listH")).value = params.listH.toString();
+    (<HTMLInputElement>document.getElementById("paperCalc_objW")).value = params.objW.toString();
+    (<HTMLInputElement>document.getElementById("paperCalc_objH")).value = params.objH.toString();
+
+    (<HTMLButtonElement>document.getElementById("paperCalc_eval")).click();
+}
