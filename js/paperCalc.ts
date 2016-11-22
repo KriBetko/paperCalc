@@ -110,7 +110,7 @@ function drawResult(listW: number, listH: number, objW: number, objH: number, co
     context.stroke();
 
     context.fillStyle = "black";
-    context.font = "20px Arial";
+    context.font =  20 + "px Arial";
     context.fillText(textListWidth,
         (listW / 2) + canvasPadding,
         canvasPadding / 2
@@ -136,8 +136,9 @@ function drawResult(listW: number, listH: number, objW: number, objH: number, co
         context.stroke();
 
         context.fillStyle = "black";
-        context.font = "30px Arial";
-        context.fillText((i + 1).toString(), (items[i].start.x + (objW / 2)) - 5, (items[i].start.y + (objH / 2)) - 5);
+        let fontWidth = objW < 100 ? Math.floor(objW / 2) : Math.floor(objW / 4);
+        context.font = fontWidth + "px Arial";
+        context.fillText((i + 1).toString(), items[i].start.x + 2, items[i].start.y + fontWidth);
     }
 
     parent.postMessage("resize", "*");
