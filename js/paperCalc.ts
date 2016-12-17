@@ -87,9 +87,12 @@ function resetInputs()
 }
 
 function drawResult(listW: number, listH: number, objW: number, objH: number, count: number){
-    let canvas = <HTMLCanvasElement>document.getElementById("paperCalc_canvas");
-    canvas.width = canvas.parentElement.offsetWidth;
-    let scale = (canvas.width - canvasPadding) / listW;
+    let image = <HTMLImageElement>document.getElementById('paperCalc_image');
+    let canvas = document.createElement('canvas');
+    image.width = image.parentElement.offsetWidth;
+    canvas.width = image.parentElement.offsetWidth;
+    let scale = (image.width - canvasPadding) / listW;
+    image.height = (listH + canvasPadding) * scale;
     canvas.height = (listH + canvasPadding) * scale;
 
     let objOnRow = Math.floor(listW / objW);
@@ -101,7 +104,7 @@ function drawResult(listW: number, listH: number, objW: number, objH: number, co
     objW = objW * scale;
     objH = objH * scale;
 
-    let items = calcDrawResult(listW, objH, objW, count, objOnRow);
+    let items = calcDrawResult(objH, objW, count, objOnRow);
 
     let context = canvas.getContext("2d");
 
@@ -143,10 +146,12 @@ function drawResult(listW: number, listH: number, objW: number, objH: number, co
         context.fillText((i + 1).toString(), items[i].start.x + 2, items[i].start.y + fontWidth);
     }
 
+    image.src = canvas.toDataURL();
+
     parent.postMessage("resize", "*");
 }
 
-function calcDrawResult(listW: number, objH: number, objW: number, count: number, objOnRow: number): Array<Item> {
+function calcDrawResult(objH: number, objW: number, count: number, objOnRow: number): Array<Item> {
     let items: Array<Item> = [];
 
     for (let i = 1; i <= count; i++){
