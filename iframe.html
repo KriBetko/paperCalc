@@ -4,7 +4,7 @@
     var eventer = window[eventMethod];
     var messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
 
-    eventer(messageEvent, function(e) {
+    eventer(messageEvent, function() {
         resizeIframe();
     },false);
 
