@@ -3,5 +3,5 @@ node_modules
 prod
 release
 src/css
-src/js
+src/js/*
 !src/js/paperCalc.ts
