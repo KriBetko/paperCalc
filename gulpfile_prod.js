@@ -5,12 +5,13 @@ var rename = require("gulp-rename");
 var uglify = require('gulp-uglify');
 var clean = require('gulp-clean');
 var uncss = require('gulp-uncss');
+var revAppend = require('gulp-rev-append');
 
 var prodFolder = "prod/";
 var cssFolder = prodFolder + "css/";
 var jsFolder = prodFolder + "js/";
 
-gulp.task('prod', ['css', 'js', 'copyBootstrap', 'copyHtml']);
+gulp.task('prod', ['css', 'js', 'copyBootstrap', 'copyHtml', 'revAppend']);
 
 gulp.task('css', function() {
     return gulp.src('src/less/paperCalc.less')
@@ -40,6 +41,12 @@ gulp.task('copyBootstrap', function () {
 
 gulp.task('copyHtml', function () {
     return gulp.src('src/paperCalc.html')
+        .pipe(gulp.dest(prodFolder));
+});
+
+gulp.task('revAppend', function() {
+    gulp.src(prodFolder + 'paperCalc.html')
+        .pipe(revAppend())
         .pipe(gulp.dest(prodFolder));
 });
 
