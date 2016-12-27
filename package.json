@@ -21,6 +21,7 @@
     "gulp-rename": "^1.2.2",
     "gulp-rev-append": "^0.1.7",
     "gulp-uglify": "^2.0.0",
-    "gulp-uncss": "^1.0.6"
+    "gulp-uncss": "^1.0.6",
+    "gulp-zip": "^3.2.0"
   }
 }

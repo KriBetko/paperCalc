@@ -1,6 +1,7 @@
 .idea
 node_modules
 prod
+release
 src/js/paperCalc.js
 src/js/paperCalc.min.js
 src/js/paperCalc.js.map

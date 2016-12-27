@@ -6,6 +6,7 @@ var uglify = require('gulp-uglify');
 var clean = require('gulp-clean');
 var uncss = require('gulp-uncss');
 var revAppend = require('gulp-rev-append');
+var zip = require('gulp-zip');
 
 var prodFolder = "prod/";
 var cssFolder = prodFolder + "css/";
@@ -44,10 +45,16 @@ gulp.task('copyHtml', function () {
         .pipe(gulp.dest(prodFolder));
 });
 
-gulp.task('revAppend', function() {
+gulp.task('revAppend', ['copyHtml'], function() {
     gulp.src(prodFolder + 'paperCalc.html')
         .pipe(revAppend())
         .pipe(gulp.dest(prodFolder));
+});
+
+gulp.task('zip', function() {
+    return gulp.src(prodFolder + '**')
+        .pipe(zip('paperCalc.zip'))
+        .pipe(gulp.dest('release'));
 });
 
 gulp.task('clear', function () {
