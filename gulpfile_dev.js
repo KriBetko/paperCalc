@@ -13,19 +13,17 @@ var jsFolder = srcFolder + "js/";
 var lessFolder = srcFolder + "less/";
 
 var paths = {
-    css: cssFolder + 'paperCalc.css',
     js: jsFolder + 'paperCalc.js',
     less: lessFolder + 'paperCalc.less'
 };
 
 gulp.task('watch', function() {
-    gulp.watch(paths.less, ['css']);
-    gulp.watch(paths.js, ['js']);
-    gulp.watch([paths.css, paths.js], ['revAppend'])
+    gulp.watch(paths.less, ['css', 'revAppend']);
+    gulp.watch(paths.js, ['js', 'revAppend']);
 });
 
 gulp.task('css', function() {
-    return gulp.src(paths.css)
+    return gulp.src(paths.less)
         .pipe(less())
         .pipe(cleanCSS({ compatibility: 'ie8' }))
         .pipe(rename({ suffix: '.min' }))
