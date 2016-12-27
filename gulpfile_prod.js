@@ -7,6 +7,7 @@ var clean = require('gulp-clean');
 var uncss = require('gulp-uncss');
 var revAppend = require('gulp-rev-append');
 var zip = require('gulp-zip');
+var typescript = require('gulp-typescript');
 
 var prodFolder = "prod/";
 var cssFolder = prodFolder + "css/";
@@ -26,7 +27,10 @@ gulp.task('css', function() {
 });
 
 gulp.task('js', function () {
-    return gulp.src(['src/js/paperCalc.js'])
+    return gulp.src(['src/js/paperCalc.ts'])
+        .pipe(typescript({
+            noImplicitAny: true
+        }))
         .pipe(uglify())
         .pipe(rename({ suffix: '.min' }))
         .pipe(gulp.dest(jsFolder));
