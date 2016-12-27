@@ -4,6 +4,7 @@ var cleanCSS = require('gulp-clean-css');
 var rename = require("gulp-rename");
 var uglify = require('gulp-uglify');
 var revAppend = require('gulp-rev-append');
+var typescript = require('gulp-typescript');
 
 gulp.task('dev', ['css', 'js', 'copyBootstrap', 'revAppend']);
 
@@ -13,13 +14,13 @@ var jsFolder = srcFolder + "js/";
 var lessFolder = srcFolder + "less/";
 
 var paths = {
-    js: jsFolder + 'paperCalc.js',
+    ts: jsFolder + 'paperCalc.ts',
     less: lessFolder + 'paperCalc.less'
 };
 
 gulp.task('watch', function() {
     gulp.watch(paths.less, ['css', 'revAppend']);
-    gulp.watch(paths.js, ['js', 'revAppend']);
+    gulp.watch(paths.ts, ['js', 'revAppend']);
 });
 
 gulp.task('css', function() {
@@ -31,7 +32,10 @@ gulp.task('css', function() {
 });
 
 gulp.task('js', function () {
-    return gulp.src(paths.js)
+    return gulp.src(paths.ts)
+        .pipe(typescript({
+            noImplicitAny: true
+        }))
         .pipe(uglify())
         .pipe(rename({ suffix: '.min' }))
         .pipe(gulp.dest(jsFolder));
