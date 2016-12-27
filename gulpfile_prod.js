@@ -45,7 +45,7 @@ gulp.task('copyHtml', function () {
         .pipe(gulp.dest(prodFolder));
 });
 
-gulp.task('revAppend', ['copyHtml'], function() {
+gulp.task('revAppend', ['copyHtml', 'css', 'js', 'copyBootstrap'], function() {
     gulp.src(prodFolder + 'paperCalc.html')
         .pipe(revAppend())
         .pipe(gulp.dest(prodFolder));

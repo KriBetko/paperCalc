@@ -2,7 +2,7 @@
 node_modules
 prod
 release
+src/css
 src/js/paperCalc.js
-src/js/paperCalc.min.js
 src/js/paperCalc.js.map
-src/css/bootstrap.min.css
+src/js/paperCalc.min.js
