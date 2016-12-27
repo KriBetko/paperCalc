@@ -12,7 +12,7 @@ var prodFolder = "prod/";
 var cssFolder = prodFolder + "css/";
 var jsFolder = prodFolder + "js/";
 
-gulp.task('prod', ['css', 'js', 'copyBootstrap', 'copyHtml', 'revAppend']);
+gulp.task('prod', ['css', 'js', 'copyBootstrap', 'copyHtml', 'revAppend', 'zip']);
 
 gulp.task('css', function() {
     return gulp.src('src/less/paperCalc.less')
@@ -51,7 +51,7 @@ gulp.task('revAppend', ['copyHtml', 'css', 'js', 'copyBootstrap'], function() {
         .pipe(gulp.dest(prodFolder));
 });
 
-gulp.task('zip', function() {
+gulp.task('zip', ['css', 'js', 'copyBootstrap', 'copyHtml', 'revAppend'], function() {
     return gulp.src(prodFolder + '**')
         .pipe(zip('paperCalc.zip'))
         .pipe(gulp.dest('release'));
