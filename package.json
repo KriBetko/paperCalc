@@ -1,0 +1,24 @@
+{
+  "name": "papercalc",
+  "version": "1.0.1",
+  "description": "A paper cut calculator",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KriBetko/paperCalc.git"
+  },
+  "author": "Ivan Kolodrivskiy",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/KriBetko/paperCalc/issues"
+  },
+  "homepage": "https://github.com/KriBetko/paperCalc#readme",
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "gulp": "^3.9.1",
+    "gulp-clean": "^0.3.2",
+    "gulp-clean-css": "^2.3.2",
+    "gulp-less": "^3.3.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^2.0.0"
+  }
+}

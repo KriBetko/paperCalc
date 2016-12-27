@@ -1,3 +1,7 @@
-.idea/
-js/paperCalc.js
-js/paperCalc.js.map
+.idea
+node_modules
+prod
+src/js/paperCalc.js
+src/js/paperCalc.min.js
+src/js/paperCalc.js.map
+src/css/bootstrap.min.css
