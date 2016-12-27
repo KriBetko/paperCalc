@@ -1,5 +1,5 @@
 {
-  "name": "papercalc",
+  "name": "paperCalc",
   "version": "1.0.1",
   "description": "A paper cut calculator",
   "repository": {
@@ -23,7 +23,7 @@
     "gulp-typescript": "^3.1.3",
     "gulp-uglify": "^2.0.0",
     "gulp-uncss": "^1.0.6",
-    "gulp-zip": "^3.2.0",
-    "typescript": "^2.1.4"
+    "typescript": "^2.1.4",
+    "browser-sync": "^2.2.3"
   }
 }

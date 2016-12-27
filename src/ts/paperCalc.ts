@@ -209,10 +209,6 @@ class ItemPosition{
         this.x = x;
         this.y = y;
     }
-
-    get():{x: number, y: number}{
-        return {x: this.x, y: this.y};
-    }
 }
 
 class ItemSize{
@@ -222,10 +218,6 @@ class ItemSize{
     constructor(width: number, height: number){
         this.width = width;
         this.height = height;
-    }
-
-    get():{width: number, height: number}{
-        return {width: this.width, height: this.height};
     }
 }
 
