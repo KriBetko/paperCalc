@@ -1,3 +1,5 @@
+"use strict";
+
 const gulp = require('gulp'),
     uglify = require('gulp-uglify'),
     browserSync = require("browser-sync").create(),
@@ -7,7 +9,9 @@ const gulp = require('gulp'),
     cleanCSS = require('gulp-clean-css'),
     clean = require('gulp-clean'),
     revAppend = require('gulp-rev-append'),
-    uncss = require('gulp-uncss');
+    uncss = require('gulp-uncss'),
+    inlineCss = require('gulp-inline-css'),
+    zip = require('gulp-zip');
 
 const path = {
     build: {
@@ -25,10 +29,18 @@ const path = {
         ts: 'src/ts/**/*.ts',
         less: 'src/less/**/*.less'
     },
-    clean: './build',
+    clean: 'build/',
     vendor: {
         bootstrap: "node_modules/bootstrap/dist/css/bootstrap.css"
-    }
+    },
+    release: {
+        main: 'release/',
+        html: 'release/',
+        js: 'release/js/'
+    },
+    zip: [
+        'release/*'
+    ]
 };
 
 const config = {
@@ -64,13 +76,14 @@ gulp.task('watch', function(){
     });
 });
 
-gulp.task('html', ['js', 'css', 'vendor'], function () {
+gulp.task('html:build', ['js', 'css', 'vendor'], function () {
     return gulp.src(path.src.html)
+        .pipe(inlineCss())
         .pipe(gulp.dest(path.build.html))
         .pipe(browserSync.stream());
 });
 
-gulp.task('js', function () {
+gulp.task('js:build', function () {
     return gulp.src(path.src.ts)
         .pipe(typescript())
         .pipe(uglify())
@@ -79,7 +92,7 @@ gulp.task('js', function () {
         .pipe(browserSync.stream());
 });
 
-gulp.task('css', function () {
+gulp.task('css:build', function () {
     return gulp.src(path.src.less)
         .pipe(less())
         .pipe(uncss({
@@ -91,7 +104,7 @@ gulp.task('css', function () {
         .pipe(browserSync.stream());
 });
 
-gulp.task('vendor', function () {
+gulp.task('vendor:build', function () {
     return gulp.src(path.vendor.bootstrap)
         .pipe(uncss({
             html: [path.src.html]
@@ -106,13 +119,27 @@ gulp.task('webServer', ['build'], function () {
     return browserSync.init(config);
 });
 
-gulp.task('clean', function () {
+gulp.task('clean:build', function () {
     return gulp.src(path.clean, {read: false})
         .pipe(clean());
 });
 
-gulp.task('revAppend', ['css', 'js', 'vendor', 'html'], function() {
+gulp.task('revAppend:build', ['css', 'js', 'vendor', 'html'], function() {
     gulp.src(path.build.html + '/paperCalc.html')
         .pipe(revAppend())
         .pipe(gulp.dest(path.build.html));
+});
+
+gulp.task('release', ['build'], function () {
+    gulp.src(path.release.main).pipe(clean(), {read: false});
+    gulp.src(path.build.html + 'paperCalc.html')
+        .pipe(gulp.dest(path.release.html));
+    gulp.src(path.build.js + 'paperCalc.min.js')
+        .pipe(gulp.dest(path.release.js));
+});
+
+gulp.task('zip:release', function () {
+    return gulp.src(path.zip)
+        .pipe(zip('paperCalc.zip'))
+        .pipe(gulp.dest(path.release.main));
 });
