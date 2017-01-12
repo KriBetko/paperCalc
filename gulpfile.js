@@ -57,26 +57,26 @@ gulp.task('default', [
 ]);
 
 gulp.task('build', [
-    'js',
-    'css',
-    'vendor',
-    'html',
-    'revAppend'
+    'js:build',
+    'css:build',
+    'vendor:build',
+    'html:build',
+    'revAppend:build'
 ]);
 
 gulp.task('watch', function(){
     gulp.watch([path.watch.html], function() {
-        gulp.run('html');
+        gulp.run('html:build');
     });
     gulp.watch([path.watch.less], function() {
-        gulp.run('css');
+        gulp.run('css:build');
     });
     gulp.watch([path.watch.ts], function() {
-        gulp.run('js');
+        gulp.run('js:build');
     });
 });
 
-gulp.task('html:build', ['js', 'css', 'vendor'], function () {
+gulp.task('html:build', ['js:build', 'css:build', 'vendor:build'], function () {
     return gulp.src(path.src.html)
         .pipe(inlineCss())
         .pipe(gulp.dest(path.build.html))
@@ -124,7 +124,7 @@ gulp.task('clean:build', function () {
         .pipe(clean());
 });
 
-gulp.task('revAppend:build', ['css', 'js', 'vendor', 'html'], function() {
+gulp.task('revAppend:build', ['css:build', 'js:build', 'vendor:build', 'html:build'], function() {
     gulp.src(path.build.html + '/paperCalc.html')
         .pipe(revAppend())
         .pipe(gulp.dest(path.build.html));
