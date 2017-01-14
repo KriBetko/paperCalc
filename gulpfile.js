@@ -9,8 +9,7 @@ const gulp = require('gulp'),
     cleanCSS = require('gulp-clean-css'),
     clean = require('gulp-clean'),
     uncss = require('gulp-uncss'),
-    inlineCss = require('gulp-inline-css'),
-    zip = require('gulp-zip');
+    inlineCss = require('gulp-inline-css');
 
 const path = {
     build: {
@@ -36,10 +35,7 @@ const path = {
         main: 'release/',
         html: 'release/',
         js: 'release/js/'
-    },
-    zip: [
-        'release/*'
-    ]
+    }
 };
 
 const config = {
@@ -128,10 +124,4 @@ gulp.task('release', ['build'], function () {
         .pipe(gulp.dest(path.release.html));
     gulp.src(path.build.js + 'paperCalc.min.js')
         .pipe(gulp.dest(path.release.js));
-});
-
-gulp.task('zip:release', function () {
-    return gulp.src(path.zip)
-        .pipe(zip('paperCalc.zip'))
-        .pipe(gulp.dest(path.release.main));
 });
