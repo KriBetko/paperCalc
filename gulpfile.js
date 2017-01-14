@@ -8,7 +8,6 @@ const gulp = require('gulp'),
     less = require('gulp-less'),
     cleanCSS = require('gulp-clean-css'),
     clean = require('gulp-clean'),
-    revAppend = require('gulp-rev-append'),
     uncss = require('gulp-uncss'),
     inlineCss = require('gulp-inline-css'),
     zip = require('gulp-zip');
@@ -60,8 +59,7 @@ gulp.task('build', [
     'js:build',
     'css:build',
     'vendor:build',
-    'html:build',
-    'revAppend:build'
+    'html:build'
 ]);
 
 gulp.task('watch', function(){
@@ -122,12 +120,6 @@ gulp.task('webServer', ['build'], function () {
 gulp.task('clean:build', function () {
     return gulp.src(path.clean, {read: false})
         .pipe(clean());
-});
-
-gulp.task('revAppend:build', ['css:build', 'js:build', 'vendor:build', 'html:build'], function() {
-    gulp.src(path.build.html + '/paperCalc.html')
-        .pipe(revAppend())
-        .pipe(gulp.dest(path.build.html));
 });
 
 gulp.task('release', ['build'], function () {
