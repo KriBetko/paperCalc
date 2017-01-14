@@ -93,8 +93,8 @@ function drawResult(listW: number, listH: number, objW: number, objH: number, co
     image.height = imageHeight;
     canvas.height = imageHeight;
     let scale = (image.height - canvasPadding) / listH;
-    image.width = (listW + canvasPadding) * scale;
-    canvas.width = (listW + canvasPadding) * scale;
+    image.width = ((listW + canvasPadding) * scale) + 21;
+    canvas.width = ((listW + canvasPadding) * scale) + 21;
 
     let objOnRow = Math.floor(listW / objW);
 
