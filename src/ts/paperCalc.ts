@@ -1,7 +1,7 @@
 const inputs: string[] = ["paperCalc_listH", "paperCalc_listW", "paperCalc_objH", "paperCalc_objW"];
 const results: string[] = ["paperCalc_count", "paperCalc_trash"];
 const canvasPadding = 40;
-const imageHeight = 400;
+const imageHeight = 500;
 
 document.getElementById('paperCalc_eval').addEventListener('click', function () {
     calc();
@@ -92,7 +92,7 @@ function drawResult(listW: number, listH: number, objW: number, objH: number, co
     let canvas = document.createElement('canvas');
     image.height = imageHeight;
     canvas.height = imageHeight;
-    let scale = (image.height - canvasPadding) / listH;
+    let scale = (imageHeight - canvasPadding) / listH;
     image.width = ((listW + canvasPadding) * scale) + 21;
     canvas.width = ((listW + canvasPadding) * scale) + 21;
 

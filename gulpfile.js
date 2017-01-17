@@ -63,7 +63,7 @@ gulp.task('watch', function(){
         gulp.run('html:build');
     });
     gulp.watch([path.watch.less], function() {
-        gulp.run('css:build');
+        gulp.run('html:build');
     });
     gulp.watch([path.watch.ts], function() {
         gulp.run('js:build');
